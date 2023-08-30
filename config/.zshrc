@@ -12,8 +12,8 @@ HISTFILE=~/.zsh_history
 # environment variables
 
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-export ANDROID_HOME=/home/stefan/dev/Android
-export ANDROID_SDK_ROOT=/home/stefan/dev/Android
+export ANDROID_HOME=$HOME/dev/Android
+export ANDROID_SDK_ROOT=$HOME/dev/Android
 
 path=(
   $HOME/dev/dotfiles2-work/bin

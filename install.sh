@@ -1,8 +1,8 @@
 #!/bin/bash
 
 base="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-home="/home/stefan/"
-backup="/home/stefan/dotfile-backup-$(date '+%Y-%m-%d')"
+home="$HOME"
+backup="$HOME/dotfile-backup-$(date '+%Y-%m-%d')"
 backup_used="no"
 
 # loop through hidden files
