@@ -16,7 +16,7 @@ export ANDROID_HOME=/home/stefan/dev/Android
 export ANDROID_SDK_ROOT=/home/stefan/dev/Android
 
 path=(
-  $HOME/dev/dotfiles-work/bin
+  $HOME/dev/dotfiles2-work/bin
   $path
 )
 
@@ -29,7 +29,7 @@ export PAGER='less'
 
 REPORTTIME=2
 
-test -f ~/dev/dotfiles-work/uber.sh && source ~/dev/dotfiles-work/uber.sh
+test -f ~/dev/dotfiles2-work/uber.sh && source ~/dev/dotfiles2-work/uber.sh
 
 # some colors
 
@@ -102,7 +102,7 @@ function fh {
 alias u='sudo apt update && sudo apt upgrade'
 
 # edit zsh config
-alias ez="e ~/dev/dotfiles-work/config/.zshrc"
+alias ez="e ~/dev/dotfiles2-work/config/.zshrc"
 function rz {
   source ~/.zshrc
 }
@@ -183,7 +183,7 @@ alias gp='git push --recurse-submodules=on-demand'
 alias gpp='git push --recurse-submodules=on-demand --force'
 alias gu='git pull'
 alias guu='git pull && git submodule update --recursive'
-alias gl='$HOME/dev/dotfiles2/modules/git-tree/target/release/git-tree -- --format="%C(auto)%h %d %<(50,trunc)%s"'
+alias gl='$HOME/dev/dotfiles2-work/modules/git-tree/target/release/git-tree -- --format="%C(auto)%h %d %<(50,trunc)%s"'
 alias glog='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
 alias gcount='git shortlog --summary --numbered'
 alias gs='echo "Branch: $(git branch --show-current)" && git status -s'
@@ -348,7 +348,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # Theme
 
 # NO_GIT
-# source ~/dev/dotfiles2/modules/gitstatus/gitstatus.plugin.zsh
+# source ~/dev/dotfiles2-work/modules/gitstatus/gitstatus.plugin.zsh
 
 setopt PROMPT_SUBST
 prmopt_stefan() {
@@ -510,4 +510,4 @@ setopt no_prompt_bang prompt_percent prompt_subst
 
 
 # load this last
-source ~/dev/dotfiles2/modules/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/dev/dotfiles2-work/modules/zsh-history-substring-search/zsh-history-substring-search.zsh
