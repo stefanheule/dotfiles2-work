@@ -358,8 +358,10 @@ prmopt_stefan() {
 
   local pwdvar="${PWD/#$HOME/~}"
   local remote_title_prefix=""
-  [[ $(hostname) != "mercury" ]] && remote_title_prefix="⇡ "
-  set_titlebar "${remote_title_prefix}${pwdvar##*/} @ $(hostname)" 1
+  local hnamee=$(hostname)
+  local hname=${hnamee/stefanh-JXJGWL69YF/stefanh}
+  [[ $hname != "mercury" ]] && remote_title_prefix="⇡ "
+  set_titlebar "${remote_title_prefix}${pwdvar##*/} @ $hname" 1
 
   local prefix=""
   if [[ "$pwdvar" =~ ^~/dev/nemo(/|$).*  ]]; then
@@ -373,8 +375,8 @@ prmopt_stefan() {
   fi
 
   local main_color="%F{37}" # teal
-  [[ $(hostname) != "mercury" ]] && main_color="%F{99}" # 
-  echo -n "${main_color}%m%f @ %F{246}$prefix%f${main_color}${pwdvar}%f${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}"
+  [[ $hname != "mercury" ]] && main_color="%F{99}" # 
+  echo -n "${main_color}${hname}%f @ %F{246}$prefix%f${main_color}${pwdvar}%f${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}"
   echo -n "\n$"
 }
 PROMPT='$(prmopt_stefan) '
@@ -505,6 +507,12 @@ autoload -Uz add-zsh-hook
 setopt no_prompt_bang prompt_percent prompt_subst
 
 
+
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
 
