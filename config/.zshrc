@@ -360,7 +360,7 @@ prmopt_stefan() {
   local remote_title_prefix=""
   local hnamee=$(hostname)
   local hname=${hnamee/stefanh-JXJGWL69YF/stefanh}
-  [[ $hname != "mercury" ]] && remote_title_prefix="⇡ "
+  [[ $hname != "stefanh" ]] && remote_title_prefix="⇡ "
   set_titlebar "${remote_title_prefix}${pwdvar##*/} @ $hname" 1
 
   local prefix=""
@@ -375,7 +375,7 @@ prmopt_stefan() {
   fi
 
   local main_color="%F{37}" # teal
-  [[ $hname != "mercury" ]] && main_color="%F{99}" # 
+  [[ $hname != "stefanh" ]] && main_color="%F{99}" # 
   echo -n "${main_color}${hname}%f @ %F{246}$prefix%f${main_color}${pwdvar}%f${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}"
   echo -n "\n$"
 }
@@ -515,6 +515,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 
+
+eval "$(direnv hook zsh)"
 
 
 
