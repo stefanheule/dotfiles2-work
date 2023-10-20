@@ -45,14 +45,14 @@ function link_sublime_settings {
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     error "TODO install linux sublime settings"
-    dst_path=~/Library/Application\ Support/Sublime\ Text/Packages/User
+    dst_path=$HOME/Library/Application\ Support/Sublime\ Text/Packages/User
     dst_path_settings=$dst_path/Preferences.sublime-settings
     dst_path_keys=$dst_path/Default\ \(Linux\).sublime-keymap
     src_path_keys="$base/config/sublime/Default (Linux).sublime-keymap"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
-    dst_path=~/Library/Application\ Support/Sublime\ Text/Packages/User
-    dst_path_settings=$dst_path/Preferences.sublime-settings
-    dst_path_keys=$dst_path/Default\ \(OSX\).sublime-keymap
+    dst_path="$HOME/Library/Application Support/Sublime Text/Packages/User"
+    dst_path_settings="$dst_path/Preferences.sublime-settings"
+    dst_path_keys="$dst_path/Default (OSX).sublime-keymap"
     src_path_keys="$base/config/sublime/Default (OSX).sublime-keymap"
   else
     error "unknown OS"
@@ -63,14 +63,17 @@ function link_sublime_settings {
     return
   fi
 
+  comment "sublime/Default.sublime-keymap: "
   link_file "$dst_path_keys" "$src_path_keys"
+  comment "sublime/Preferences.sublime-settings: "
+  link_file "$dst_path_settings" "$base/config/sublime/Preferences.sublime-settings"
 }
 
 function backup {
   local path=$1
   local file=${path##*/}
-  mkdir -p $backup
-  mv $path $backup/$file
+  mkdir -p "$backup"
+  mv "$path" "$backup/$file"
   backup_used="yes"
 }
 
@@ -79,11 +82,11 @@ function link_dir {
   local dirname=$1
   local source_dir_path=$2
   local home_dir_path="$home$dirname/"
-  mkdir -p $home_dir_path
+  mkdir -p "$home_dir_path"
   for path in $source_dir_path/*; do
     local file=${path##*/}
     comment "  - $file: "
-    link_file "$home_dir_path$file" $path
+    link_file "$home_dir_path$file" "$path"
   done
 }
 
@@ -91,20 +94,20 @@ function link_file {
   local link_location=$1
   local link_destination=$2
   if [ -L "$link_location" ]; then
-    if [ "$(readlink -f $link_location)" = "$link_destination" ]; then
+    if [ "$(readlink -f "$link_location")" = "$link_destination" ]; then
       green "already linked"
     else
-      blue "link was $(readlink -f $link_location), fixing"
-      rm $link_location
-      ln -s $link_destination $link_location
+      blue "link was $(readlink -f "$link_location"), fixing"
+      rm "$link_location"
+      ln -s "$link_destination" "$link_location"
     fi
   elif [ -f "$link_location" ]; then
     blue "backing up and symlinking"
-    backup $link_location
-    ln -s $link_destination $link_location
+    backup "$link_location"
+    ln -s "$link_destination" "$link_location"
   else
     blue "symlinking"
-    ln -s $link_destination $link_location
+    ln -s "$link_destination" "$link_location"
   fi
   echo ""
 }
