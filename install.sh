@@ -13,6 +13,10 @@ function main {
   local config="$base/config"
   for path in $config/*; do
     local file=${path##*/}
+    if [[ "$file" == "sublime" ]]; then
+      continue
+    fi
+    
     comment "~/$file: "
     if [ -f "$path" ]; then
       link_file "$home/$file" $path
@@ -23,9 +27,43 @@ function main {
     fi
   done
 
+  link_sublime_settings
+
   if [ $backup_used = "yes" ]; then
     blue "Backed up some files, check $backup\n"
   fi
+}
+
+function link_sublime_settings {
+  cp "$base/config/sublime/Default (Windows).sublime-keymap" "$base/config/sublime/Default (Linux).sublime-keymap"
+  cp "$base/config/sublime/Default (Windows).sublime-keymap" "$base/config/sublime/Default (OSX).sublime-keymap"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' 's/ctrl/super/g' "$base/config/sublime/Default (OSX).sublime-keymap"
+  else
+    sed -i 's/ctrl/super/g' "$base/config/sublime/Default (OSX).sublime-keymap"
+  fi
+
+  if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    error "TODO install linux sublime settings"
+    dst_path=~/Library/Application\ Support/Sublime\ Text/Packages/User
+    dst_path_settings=$dst_path/Preferences.sublime-settings
+    dst_path_keys=$dst_path/Default\ \(Linux\).sublime-keymap
+    src_path_keys="$base/config/sublime/Default (Linux).sublime-keymap"
+  elif [[ "$OSTYPE" == "darwin"* ]]; then
+    dst_path=~/Library/Application\ Support/Sublime\ Text/Packages/User
+    dst_path_settings=$dst_path/Preferences.sublime-settings
+    dst_path_keys=$dst_path/Default\ \(OSX\).sublime-keymap
+    src_path_keys="$base/config/sublime/Default (OSX).sublime-keymap"
+  else
+    error "unknown OS"
+  fi
+
+  if [ ! -f "$dst_path_settings" ] || [ ! -f "$dst_path_keys" ]; then
+    blue "sublime not installed, not setting up sublime settings"
+    return
+  fi
+
+  link_file "$dst_path_keys" "$src_path_keys"
 }
 
 function backup {

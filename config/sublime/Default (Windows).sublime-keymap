@@ -1,0 +1,58 @@
+[
+  {
+    "keys": [
+      "ctrl+d"
+    ],
+    "command": "run_macro_file",
+    "args": {
+      "file": "Packages/Default/Delete Line.sublime-macro"
+    }
+  },
+  {
+    "keys": [
+      "super+h"
+    ],
+    "command": "show_panel",
+    "args": {"panel": "replace", "reverse": false}
+  },
+  {
+    "keys": [
+      "ctrl+shift+r"
+    ],
+    "command": "refresh_folder_list"
+  },
+  {
+    "keys": [
+      "alt+up"
+    ],
+    "command": "swap_line_up"
+  },
+  {
+    "keys": [
+      "alt+down"
+    ],
+    "command": "swap_line_down"
+  },
+  {
+    "keys": [
+      "alt+left"
+    ],
+    "command": "jump_back"
+  },
+  {
+    "keys": [
+      "alt+right"
+    ],
+    "command": "jump_forward"
+  },
+  {
+    "keys": [
+      "ctrl+shift+c"
+    ],
+    "command": "show_panel",
+    "args": {
+      "panel": "console",
+      "toggle": true
+    }
+  }
+]
