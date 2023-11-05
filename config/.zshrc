@@ -11,7 +11,7 @@ HISTFILE=~/.zsh_history
 # ------------------------------------------------------------------------------
 # environment variables
 
-if [[ -v $DEVPOD_NAME ]]; then
+if ! [[ -v DEVPOD_NAME ]]; then
   unset JAVA_HOME
   export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
   export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
@@ -382,7 +382,11 @@ prmopt_stefan() {
   fi
 
   local main_color="%F{37}" # teal
-  [[ $hname != "stefanh" ]] && main_color="%F{99}" # 
+  [[ $hname != "stefanh" ]] && main_color="%F{160}" # red
+  if ! [[ -v DEVPOD_NAME ]]; then
+    hname="$DEVPOD_FLAVOR::$DEVPOD_NAME.devpod-us-$DEVPOD_LOCATION"
+    main_color="%F{99}" # purple
+  fi
   echo -n "${main_color}${hname}%f @ %F{246}$prefix%f${main_color}${pwdvar}%f${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}"
   echo -n "\n$"
 }
