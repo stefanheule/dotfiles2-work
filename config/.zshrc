@@ -384,10 +384,12 @@ prmopt_stefan() {
   local main_color="%F{37}" # teal
   [[ $hname != "stefanh" ]] && main_color="%F{160}" # red
   if [[ -v DEVPOD_NAME ]]; then
-    hname="$DEVPOD_FLAVOR::$DEVPOD_NAME.devpod-us-$DEVPOD_LOCATION"
     main_color="%F{99}" # purple
+    echo -n "$DEVPOD_FLAVOR @ ${main_color}${hname}%f.devpod-us-$DEVPOD_REGION"
+  else
+    echo -n "${main_color}${hname}"
   fi
-  echo -n "${main_color}${hname}%f @ %F{246}$prefix%f${main_color}${pwdvar}%f${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}"
+  echo -n "%f @ %F{246}$prefix%f${main_color}${pwdvar}%f${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}"
   echo -n "\n$"
 }
 PROMPT='$(prmopt_stefan) '
