@@ -11,7 +11,7 @@ function main {
   else
     mkdir -p $home/dev
     green "Cloning dotfiles..."
-    git clone --recurse-submodules git@github.com:stefanheule/dotfiles2-work.git $home/dev
+    git clone --recurse-submodules https://github.com/stefanheule/dotfiles2-work.git $home/dev
     green "Running ./install..."
     cd $home/dev/dotfiles2-work
     #./install.sh
