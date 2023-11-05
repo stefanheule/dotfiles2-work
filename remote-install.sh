@@ -12,7 +12,7 @@ function main {
     git --recurse-submodules clone git@github.com:stefanheule/dotfiles2-work.git $home/dev
     green "Running ./install..."
     cd $home/dev/dotfiles2-work
-    ./install.sh
+    #./install.sh
     green "Done with remote installation."
   fi
 }
