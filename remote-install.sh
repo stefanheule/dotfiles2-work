@@ -15,6 +15,8 @@ function main {
     green "Running ./install..."
     cd $home/dev/dotfiles2-work
     ./install.sh
+    green "Reloading zsh config..."
+    source $home/.zshrc
     green "Done with remote installation."
   fi
 }

@@ -11,12 +11,16 @@ HISTFILE=~/.zsh_history
 # ------------------------------------------------------------------------------
 # environment variables
 
-unset JAVA_HOME
-export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
-export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
-alias jdk_11='export JAVA_HOME="$JAVA11_HOME" && export PATH="$JAVA_HOME/bin:$PATH"'
-alias jdk_8='export JAVA_HOME="$JAVA8_HOME" && export PATH="$JAVA_HOME/bin:$PATH"'
-jdk_11
+if [[ -v $DEVPOD_NAME ]]; then
+  :
+else
+  unset JAVA_HOME
+  export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
+  export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
+  alias jdk_11='export JAVA_HOME="$JAVA11_HOME" && export PATH="$JAVA_HOME/bin:$PATH"'
+  alias jdk_8='export JAVA_HOME="$JAVA8_HOME" && export PATH="$JAVA_HOME/bin:$PATH"'
+  jdk_11
+fi
 
 path=(
   $HOME/dev/dotfiles2-work/bin
