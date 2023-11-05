@@ -385,7 +385,7 @@ prmopt_stefan() {
   [[ $hname != "stefanh" ]] && main_color="%F{160}" # red
   if [[ -v DEVPOD_NAME ]]; then
     main_color="%F{99}" # purple
-    echo -n "$DEVPOD_FLAVOR @ ${main_color}${hname}%f.devpod-us-$DEVPOD_REGION"
+    echo -n "${main_color}$DEVPOD_FLAVOR%f: ${main_color}${hname}%f.devpod-us-$DEVPOD_REGION"
   else
     echo -n "${main_color}${hname}"
   fi
