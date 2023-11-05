@@ -1,6 +1,6 @@
 [submodule "modules/gitstatus"]
 	path = modules/gitstatus
-	url = git@github.com:romkatv/gitstatus.git
+	url = https://github.com/romkatv/gitstatus.git
 [submodule "modules/zsh-history-substring-search"]
 	path = modules/zsh-history-substring-search
-	url = git@github.com:zsh-users/zsh-history-substring-search.git
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
