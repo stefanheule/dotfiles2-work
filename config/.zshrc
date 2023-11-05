@@ -12,8 +12,6 @@ HISTFILE=~/.zsh_history
 # environment variables
 
 if [[ -v $DEVPOD_NAME ]]; then
-  :
-else
   unset JAVA_HOME
   export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
   export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
