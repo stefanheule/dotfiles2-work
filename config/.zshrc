@@ -383,7 +383,7 @@ prmopt_stefan() {
 
   local main_color="%F{37}" # teal
   [[ $hname != "stefanh" ]] && main_color="%F{160}" # red
-  if ! [[ -v DEVPOD_NAME ]]; then
+  if [[ -v DEVPOD_NAME ]]; then
     hname="$DEVPOD_FLAVOR::$DEVPOD_NAME.devpod-us-$DEVPOD_LOCATION"
     main_color="%F{99}" # purple
   fi
