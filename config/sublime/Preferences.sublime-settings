@@ -11,4 +11,9 @@
   "theme": "Default.sublime-theme",
   "translate_tabs_to_spaces": true,
   "word_wrap": true,
+  "scroll_past_end": true,
+  "ignored_packages":
+  [
+		"Vintage",
+  ],
 }

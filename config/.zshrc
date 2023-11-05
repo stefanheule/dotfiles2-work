@@ -11,9 +11,12 @@ HISTFILE=~/.zsh_history
 # ------------------------------------------------------------------------------
 # environment variables
 
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-export ANDROID_HOME=$HOME/dev/Android
-export ANDROID_SDK_ROOT=$HOME/dev/Android
+unset JAVA_HOME
+export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
+export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
+alias jdk_11='export JAVA_HOME="$JAVA11_HOME" && export PATH="$JAVA_HOME/bin:$PATH"'
+alias jdk_8='export JAVA_HOME="$JAVA8_HOME" && export PATH="$JAVA_HOME/bin:$PATH"'
+jdk_11
 
 path=(
   $HOME/dev/dotfiles2-work/bin
@@ -317,6 +320,8 @@ bindkey "^[s" sudo-command-line
 
 bindkey '\eOA' history-substring-search-up
 bindkey '\eOB' history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # ------------------------------------------------------------------------------
 # Completion system
@@ -519,6 +524,8 @@ export NVM_DIR="$HOME/.nvm"
 eval "$(direnv hook zsh)"
 
 
+alias rw='/usr/bin/osascript ~/dev/dotfiles2-work/scripts/move-windows.applescript'
+alias winget='/usr/bin/osascript ~/dev/dotfiles2-work/scripts/get-window-size-and-position.applescript'
 
 # load this last
 source ~/dev/dotfiles2-work/modules/zsh-history-substring-search/zsh-history-substring-search.zsh
