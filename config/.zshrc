@@ -367,7 +367,7 @@ prmopt_stefan() {
   local hnamee=$(hostname)
   local hname=${hnamee/stefanh-JXJGWL69YF/stefanh}
   if [[ -v DEVPOD_NAME ]]; then
-    set_titlebar "<b>$DEVPOD_NAME</>${pwdvar##*/}" 1
+    set_titlebar "$DEVPOD_NAME: ${pwdvar##*/}" 1
   else
     set_titlebar "local: ${pwdvar##*/}" 1
   fi
