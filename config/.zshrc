@@ -364,11 +364,14 @@ prmopt_stefan() {
   local last_status=$?
 
   local pwdvar="${PWD/#$HOME/~}"
-  local remote_title_prefix=""
   local hnamee=$(hostname)
   local hname=${hnamee/stefanh-JXJGWL69YF/stefanh}
-  [[ $hname != "stefanh" ]] && remote_title_prefix="⇡ "
-  set_titlebar "${remote_title_prefix}${pwdvar##*/} @ $hname" 1
+  if [[ -v DEVPOD_NAME ]]; then
+    set_titlebar "<b>$DEVPOD_NAME</>${pwdvar##*/}" 1
+  else
+    set_titlebar "local: ${pwdvar##*/}" 1
+  fi
+  
 
   local prefix=""
   if [[ "$pwdvar" =~ ^~/dev/nemo(/|$).*  ]]; then
