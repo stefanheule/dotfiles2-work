@@ -30,6 +30,9 @@ export COMMAND_NOT_FOUND_INSTALL_PROMPT=1
 export EDITOR='nano'
 
 export LESS='--quit-if-one-screen --mouse -iR --quiet'
+if [[ -v DEVPOD_NAME ]]; then
+  export LESS='-iR --quiet'
+fi
 export PAGER='less'
 
 REPORTTIME=2
@@ -187,8 +190,8 @@ alias gb='git branch'
 alias gp='git push --recurse-submodules=on-demand'
 alias gpp='git push --recurse-submodules=on-demand --force'
 alias gu='git pull'
+alias gum='git pull origin main'
 alias guu='git pull && git submodule update --recursive'
-alias gl='$HOME/dev/dotfiles2-work/modules/git-tree/target/release/git-tree -- --format="%C(auto)%h %d %<(50,trunc)%s"'
 alias glog='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
 alias gcount='git shortlog --summary --numbered'
 alias gs='echo "Branch: $(git branch --show-current)" && git status -s'
@@ -196,9 +199,11 @@ alias gd='git diff --no-ext-diff --word-diff=color'
 alias gde='git diff' # uses external diff tool
 alias ge='git commit --amend'
 alias gau='git add -u && git commit --amend --no-edit'
+alias gaud='git add -u && git commit --amend --no-edit && arc diff'
 alias gaa='git add -A && git commit --amend --no-edit'
 alias ga='git add'
 alias gm='git fetch && git merge origin/master'
+
 function gcu {
   if [[ $# == 0 ]]; then
     git add -u && git commit -m "work in progress"
@@ -388,7 +393,7 @@ prmopt_stefan() {
   [[ $hname != "stefanh" ]] && main_color="%F{160}" # red
   if [[ -v DEVPOD_NAME ]]; then
     main_color="%F{99}" # purple
-    echo -n "${main_color}${hname}%f.devpod-us-$DEVPOD_REGION%f [${main_color}$DEVPOD_FLAVOR%f]"
+    echo -n "${main_color}${hname}%f.devpod-us-or%f [${main_color}$DEVPOD_FLAVOR%f]"
   else
     echo -n "${main_color}${hname}"
   fi
