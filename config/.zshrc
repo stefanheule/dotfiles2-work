@@ -114,6 +114,10 @@ alias ez="e ~/dev/dotfiles2-work/config/.zshrc"
 function rz {
   source ~/.zshrc
 }
+function rzz {
+  git -C ~/dev/dotfiles2-work pull
+  source ~/.zshrc
+}
 
 # alias for opening things
 # alias o='xdg-open'
@@ -527,6 +531,19 @@ autoload -Uz add-zsh-hook
 # Enable/disable the right prompt options.
 setopt no_prompt_bang prompt_percent prompt_subst
 
+
+
+function bazel2 {
+  WORKSPACE_ROOT=${WORKSPACE_ROOT:-$(git rev-parse --show-toplevel)}
+  if [ ! -f "$WORKSPACE_ROOT/bazel-bin/tools/bazelbuild/wrapper/bazelwrapper" ]; then
+    echo "BUILDING BAZEL WRAPPER FIRST"
+    tools/bazel build tools/bazelbuild/wrapper:bazelwrapper
+  fi
+  "$WORKSPACE_ROOT/bazel-bin/tools/bazelbuild/wrapper/bazelwrapper" \
+     "--wrapper-config-dir" "$WORKSPACE_ROOT/tools/bazelbuild/wrapper/config/development" \
+     "--wrapper-cwd" "$WORKSPACE_ROOT"  \
+     "$@"
+}
 
 
 
