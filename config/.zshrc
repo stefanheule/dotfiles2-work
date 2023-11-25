@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------------------
 # zsh configuration
 
-setopt histignorealldups nosharehistory
+setopt histignorealldups nosharehistory extendedhistory incappendhistorytime
 
 HISTSIZE=100000
 SAVEHIST=100000
