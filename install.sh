@@ -1,7 +1,7 @@
 #!/bin/bash
 
 base="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-home="$HOME"
+home="$HOME/"
 backup="$HOME/dotfile-backup-$(date '+%Y-%m-%d')"
 backup_used="no"
 
@@ -44,8 +44,7 @@ function link_sublime_settings {
   fi
 
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    error "TODO install linux sublime settings"
-    dst_path=$HOME/Library/Application\ Support/Sublime\ Text/Packages/User
+    dst_path=$HOME/.config/sublime-text/Packages/User/
     dst_path_settings=$dst_path/Preferences.sublime-settings
     dst_path_keys=$dst_path/Default\ \(Linux\).sublime-keymap
     src_path_keys="$base/config/sublime/Default (Linux).sublime-keymap"
