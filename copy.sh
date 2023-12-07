@@ -61,6 +61,13 @@ function main {
   git submodule add https://github.com/stefanheule/smartless.git modules/smartless
   git submodule add git@github.com:stefanheule/smartless.git modules/smartless'
   fi
+
+  if [[ "$2" = "push" ]]; then
+    comment "Committing and pushing $src\n"
+    git -C "$src" add -A && git -C "$src" commit -m "work in progress" && git -C "$src" push --recurse-submodules=on-demand
+    comment "Committing and pushing $dest\n"
+    git -C "$dest" add -A && git -C "$dest" commit -m "work in progress" && git -C "$dest" push --recurse-submodules=on-demand
+  fi
 }
 
 RED="\033[38;5;1m"
@@ -83,4 +90,4 @@ function error {
   exit 1
 }
 
-main $1
+main $1 $2

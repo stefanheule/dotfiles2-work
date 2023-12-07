@@ -360,10 +360,10 @@ prompt_pure_precmd() {
 	# check exec time and store it in a variable
 	prompt_pure_check_cmd_exec_time
 
-	# shows the full path in the title
+	# compute title
 	local pwdvar="${PWD/#$HOME/~}"
   local remote_title_prefix=""
-  [[ $STEFAN_IS_WORK -eq 0 && $STEFAN_HOSTNAME != "mercury" && $STEFAN_HOSTNAME != "carbon" ]] && remote_title_prefix="⇡ "
+	local suffix=""
   
   if [[ $STEFAN_IS_WORK -eq 1 ]]; then
 		if [[ $STEFAN_IS_DEVPOD -eq 1 ]]; then
@@ -371,9 +371,13 @@ prompt_pure_precmd() {
 		else
 			remote_title_prefix="local: "
 		fi
+	else
+		suffix=" @ $STEFAN_HOSTNAME"
+		if [[ $STEFAN_HOSTNAME != "mercury" && $STEFAN_HOSTNAME != "carbon" ]]; then
+		  remote_title_prefix="⇡ "
+		fi
 	fi
-
-	prompt_pure_set_title "${remote_title_prefix}${pwdvar##*/} @ $STEFAN_HOSTNAME"
+	prompt_pure_set_title "${remote_title_prefix}${pwdvar##*/}${suffix}"
 
 	# perform initial vcs data fetching, synchronously
 	prompt_pure_vcs_sync
