@@ -20,7 +20,7 @@ else
 fi
 
 if [[ $STEFAN_IS_WORK -eq 1 ]]; then
-  if [[ $STEFAN_IS_DEVPOD -eq 1 ]]; then
+  if [[ $STEFAN_IS_DEVPOD -eq 0 ]]; then
     unset JAVA_HOME
     export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
     export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
