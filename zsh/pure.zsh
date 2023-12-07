@@ -137,8 +137,6 @@ prompt_pure_num_lines() {
 
 prompt_pure_render_path() {
 	local pwdvar="${PWD/#$HOME/~}"
-	local remote_title_prefix=""
-	[[ $(hostname) != "mercury" ]] && remote_title_prefix="⇡ "
 
 	local host_suffix=""
 	local prefix=""
@@ -148,13 +146,13 @@ prompt_pure_render_path() {
 	fi
 
 	local main_color="%F{37}" # teal
-	[[ $STEFAN_IS_WORK -eq 0 && $(hostname) != "mercury" && $(hostname) != "carbon" ]] && main_color="%F{99}" # purple
+	[[ $STEFAN_IS_WORK -eq 0 && $STEFAN_HOSTNAME != "mercury" && $STEFAN_HOSTNAME != "carbon" ]] && main_color="%F{99}" # purple
 	if [[ $STEFAN_IS_DEVPOD -eq 1 ]]; then
 		main_color="%F{99}" # purple
 		host_suffix="%f.devpod-us-or [${main_color}${DEVPOD_FLAVOR}%f]"
 	fi
 
-	local pp="${main_color}%m%f${host_suffix} @ %F{246}$prefix%f${main_color}${pwdvar}%f"
+	local pp="${main_color}$STEFAN_HOSTNAME%f${host_suffix} @ %F{246}$prefix%f${main_color}${pwdvar}%f"
 	preprompt+=("$pp")
 }
 
@@ -357,9 +355,7 @@ prompt_pure_precmd() {
 	# shows the full path in the title
 	local pwdvar="${PWD/#$HOME/~}"
   local remote_title_prefix=""
-	local full_hostname=$(hostname)
-  local host=${full_hostname/stefanh-JXJGWL69YF/stefanh}
-  [[ $STEFAN_IS_WORK -eq 0 && $host != "mercury" && $host != "carbon" ]] && remote_title_prefix="⇡ "
+  [[ $STEFAN_IS_WORK -eq 0 && $STEFAN_HOSTNAME != "mercury" && $STEFAN_HOSTNAME != "carbon" ]] && remote_title_prefix="⇡ "
   
   if [[ $STEFAN_IS_WORK -eq 1 ]]; then
 		if [[ $STEFAN_IS_DEVPOD -eq 1 ]]; then
@@ -369,7 +365,7 @@ prompt_pure_precmd() {
 		fi
 	fi
 
-	prompt_pure_set_title "${remote_title_prefix}${pwdvar##*/} @ $(hostname)"
+	prompt_pure_set_title "${remote_title_prefix}${pwdvar##*/} @ $STEFAN_HOSTNAME"
 
 	# perform initial vcs data fetching, synchronously
 	prompt_pure_vcs_sync
