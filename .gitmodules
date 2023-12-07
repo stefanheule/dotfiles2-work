@@ -4,3 +4,12 @@
 [submodule "modules/zsh-history-substring-search"]
 	path = modules/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "modules/zsh-syntax-highlighting"]
+	path = modules/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "modules/zsh-async"]
+	path = modules/zsh-async
+	url = https://github.com/mafredri/zsh-async.git
+[submodule "modules/smartless"]
+	path = modules/smartless
+	url = https://github.com/stefanheule/smartless.git
