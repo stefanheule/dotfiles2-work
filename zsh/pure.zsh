@@ -43,12 +43,20 @@ prompt_pure_human_time_to_var() {
 	typeset -g "${var}"="${human}"
 }
 
+prompt_pure_get_seconds() {
+	if [[ $STEFAN_IS_OSX -eq 1 ]]; then
+		python3 -c 'import time; print(time.time())'
+	else
+		date +%s.%N
+	fi
+}
+
 # stores (into prompt_pure_cmd_exec_time) the exec time of the last command if set threshold was exceeded
 prompt_pure_check_cmd_exec_time() {
 	unset prompt_pure_cmd_exec_time
-
+	local now=$(prompt_pure_get_seconds)
 	if (( ${+prompt_pure_cmd_timestamp} )); then
-		local now=$(date +%s.%N)
+		
 		local elapsed=$(( now - prompt_pure_cmd_timestamp ))
 
 		if (( elapsed > ${PURE_CMD_MAX_EXEC_TIME:-2} )); then
@@ -88,7 +96,7 @@ prompt_pure_preexec() {
 		prompt_pure_async_flush
 	fi
 
-	prompt_pure_cmd_timestamp=$(date +%s.%N)
+	prompt_pure_cmd_timestamp=$(prompt_pure_get_seconds)
 
 	# shows the current dir and executed command in the title while a process is active
 	# prompt_pure_set_title 'ignore-escape' "$PWD:t: $2"

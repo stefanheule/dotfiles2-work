@@ -137,7 +137,7 @@ function rz {
 }
 function rzz {
   git -C ~/dev/$STEFAN_DOTFILES_REPO_NAME pull
-  git submodule update --init --recursive
+  git -C ~/dev/$STEFAN_DOTFILES_REPO_NAME submodule update --init --recursive
   rz
 }
 
