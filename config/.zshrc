@@ -314,6 +314,15 @@ alias spacesym='du -hsxL * | sort -rh | head -20'
 alias space2sym='du -aL . | sort -n -r | head -n 20'
 alias spaceall='df -kh'
 
+function colors() {
+  for i in {0..255} ; do
+    printf "\x1b[38;5;${i}m%3d " "${i}"
+    if (( $i == 15 )) || (( $i > 15 )) && (( ($i-15) % 12 == 0 )); then
+      echo;
+    fi
+  done
+}
+
 # ------------------------------------------------------------------------------
 # zsh hotkeys
 
