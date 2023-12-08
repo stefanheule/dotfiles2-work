@@ -22,6 +22,8 @@ function main {
   if [[ "$1" = "import" ]]; then
     src="$HOME/dev/$other"
     dest="$HOME/dev/$here"
+    comment "Refreshing git in $src\n"
+    git -C "$src" pull --recurse-submodules=on-demand
   elif [[ "$1" = "export" ]]; then
     src="$HOME/dev/$here"
     dest="$HOME/dev/$other"
