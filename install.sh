@@ -43,6 +43,7 @@ function link_sublime_settings {
     sed -i 's/ctrl/super/g' "$base/config/sublime/Default (OSX).sublime-keymap"
   fi
 
+  local src_path_settings="$base/config/sublime/Preferences.sublime-settings"
   if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     dst_path=$HOME/.config/sublime-text/Packages/User/
     dst_path_settings=$dst_path/Preferences.sublime-settings
@@ -65,14 +66,43 @@ function link_sublime_settings {
   comment "sublime/Default.sublime-keymap: "
   link_file "$dst_path_keys" "$src_path_keys"
   comment "sublime/Preferences.sublime-settings: "
-  link_file "$dst_path_settings" "$base/config/sublime/Preferences.sublime-settings"
+  link_file "$dst_path_settings" "$src_path_settings"
+
+  if [ -n "$WSL_DISTRO_NAME" ]; then
+    local wsl_path_settings="/mnt/c/Users/stefan/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap"
+    local     wsl_path_keys="/mnt/c/Users/stefan/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+    local     src_path_keys="$base/config/sublime/Default (Windows).sublime-keymap"
+
+    if [ ! -f "$wsl_path_settings" ] || [ ! -f "$wsl_path_keys" ]; then
+      blue "sublime on Windows not installed, not setting up sublime settings there"
+      return
+    fi
+
+    link_file_windows "$wsl_path_settings" "$src_path_settings" "(Windows) sublime/Default.sublime-keymap"
+    link_file_windows "$wsl_path_keys" "$src_path_keys" "(Windows) sublime/Default (Windows).sublime-keymap"
+  fi
+}
+
+function link_file_windows {
+  local dst="$1"
+  local src="$2"
+  local name="$3"
+  comment "$name: "
+  if diff "$dst" "$src" > /dev/null 2>&1; then
+    green "no changes, already correct\n"
+  else
+    blue "changes, backing up and copying over (cannot symlink to windows)\n"
+    backup "$dst" "win_"
+    cp "$src" "$dst"
+  fi
 }
 
 function backup {
   local path=$1
   local file=${path##*/}
+  local prefix=$2
   mkdir -p "$backup"
-  mv "$path" "$backup/$file"
+  mv "$path" "$backup/$prefix$file"
   backup_used="yes"
 }
 
@@ -102,7 +132,7 @@ function link_file {
     fi
   elif [ -f "$link_location" ]; then
     blue "backing up and symlinking"
-    backup "$link_location"
+    backup "$link_location" ""
     ln -s "$link_destination" "$link_location"
   else
     blue "symlinking"

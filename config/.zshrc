@@ -352,7 +352,9 @@ fancy-ctrl-z() {
   zle push-input
 }
 zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
+stty -ixon # disable ctrl+q for normal use
+bindkey '^Q' fancy-ctrl-z
+
 
 # ------------------------------------------------------------------------------
 # Completion system
@@ -377,6 +379,19 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# ------------------------------------------------------------------------------
+# ZSH openai
+
+zsh_openai_completion() {
+    text=${BUFFER}
+    completion=$(echo -n "$text" | ~/dev/dotfiles2/zsh/zsh-openai.py $CURSOR)
+    BUFFER="${completion}"
+    CURSOR=${#completion}
+}
+zle -N zsh_openai_completion
+bindkey '^o' zsh_openai_completion
+
 
 # ------------------------------------------------------------------------------
 # work specific
@@ -410,6 +425,9 @@ fi
 # Load our theme
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-async/async.zsh
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/zsh/pure.zsh
+
+source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^.' autosuggest-accept
 
 # load these last
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

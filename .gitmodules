@@ -13,3 +13,6 @@
 [submodule "modules/smartless"]
 	path = modules/smartless
 	url = https://github.com/stefanheule/smartless.git
+[submodule "modules/zsh-autosuggestions"]
+	path = modules/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
