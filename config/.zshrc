@@ -381,16 +381,11 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # ------------------------------------------------------------------------------
-# ZSH openai
+# ZSH llm autocomplete
 
-zsh_openai_completion() {
-    text=${BUFFER}
-    completion=$(echo -n "$text" | ~/dev/dotfiles2/zsh/zsh-openai.py $CURSOR)
-    BUFFER="${completion}"
-    CURSOR=${#completion}
-}
-zle -N zsh_openai_completion
+source ~/dev/$STEFAN_DOTFILES_REPO_NAME/zsh/zsh-llm-autocomplete.zsh
 bindkey '^o' zsh_openai_completion
+bindkey '^p' zsh_github_copilot_completion
 
 
 # ------------------------------------------------------------------------------
