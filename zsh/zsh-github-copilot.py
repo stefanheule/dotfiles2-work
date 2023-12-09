@@ -9,7 +9,7 @@ def main():
 
   buffer = sys.stdin.read()
 
-  if not os.path.isfile('/usr/bin/ghs'):
+  if not os.path.isfile('/usr/bin/gh'):
     print('echo "Install GitHub CLI first:" && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null && sudo apt update && sudo apt install gh -y')
     return 0
   
@@ -42,19 +42,21 @@ def main():
   if "Suggestion not readily available. Please revise for better results." in output:
     print("No answer.")
     return 0
-  
+
   idx = output.find('# Suggestion:')
   if idx != -1:
     output = output[idx + len('# Suggestion:'):]
   idx = output.find("\x0a\x0a\x1b\x37\x1b\x38\x0a\x3f")
   if idx != -1:
     output = output[:idx]
-
+  
   output = output.strip()
   
   if output == "" and error != "":
     print("ERROR: " + error)
     return 0
+
+  print(output)
 
   return 0
 

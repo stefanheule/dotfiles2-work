@@ -16,3 +16,6 @@
 [submodule "modules/zsh-autosuggestions"]
 	path = modules/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "modules/zsh-llm-suggestions"]
+	path = modules/zsh-llm-suggestions
+	url = https://github.com/stefanheule/zsh-llm-suggestions.git

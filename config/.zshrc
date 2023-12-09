@@ -381,11 +381,11 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # ------------------------------------------------------------------------------
-# ZSH llm autocomplete
+# ZSH llm suggestions
 
-source ~/dev/$STEFAN_DOTFILES_REPO_NAME/zsh/zsh-llm-autocomplete.zsh
-bindkey '^o' zsh_openai_completion
-bindkey '^p' zsh_github_copilot_completion
+source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-llm-suggestions.zsh
+bindkey '^o' zsh_llm_suggestions_openai
+bindkey '^p' zsh_llm_suggestions_github_copilot
 
 
 # ------------------------------------------------------------------------------
