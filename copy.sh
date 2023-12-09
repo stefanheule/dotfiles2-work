@@ -66,9 +66,11 @@ function main {
 
   if [[ "$2" = "push" ]]; then
     comment "Committing and pushing $src\n"
-    git -C "$src" add -A && git -C "$src" commit -m "copy.sh export push (src)" && git -C "$src" push --recurse-submodules=on-demand
+    git -C "$src" add -A && git -C "$src" commit -m "copy.sh export push (src)"
+    git -C "$src" push --recurse-submodules=on-demand
     comment "Committing and pushing $dest\n"
-    git -C "$dest" add -A && git -C "$dest" commit -m "copy.sh export push (dest)" && git -C "$dest" push --recurse-submodules=on-demand
+    git -C "$dest" add -A && git -C "$dest" commit -m "copy.sh export push (dest)"
+    git -C "$dest" push --recurse-submodules=on-demand
   fi
 }
 
