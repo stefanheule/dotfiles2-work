@@ -383,7 +383,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # ------------------------------------------------------------------------------
 # ZSH llm suggestions
 
-source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-llm-suggestions.zsh
+source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-llm-suggestions/zsh-llm-suggestions.zsh
 bindkey '^o' zsh_llm_suggestions_openai
 bindkey '^p' zsh_llm_suggestions_github_copilot
 
