@@ -23,6 +23,9 @@ zsh_llm_query() {
 zsh_llm_completion() {
   local llm="$1"
   local query=${BUFFER}
+  if [[ "$query" == "" ]]; then
+    return
+  fi
   if [[ "$query" == "$STEFAN_LLM_LAST_RESULT" ]]; then
     # The user wants another completion, because the current one is no good
     query=$STEFAN_LLM_LAST_QUERY
