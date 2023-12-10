@@ -64,6 +64,11 @@ function main {
   git submodule add git@github.com:stefanheule/smartless.git modules/smartless'
   fi
 
+  if ! diff <(git -C "$src" submodule foreach 'echo $path `git rev-parse HEAD`' | grep -v Entering) <(git -C "$dest" submodule foreach 'echo $path `git rev-parse HEAD`' | grep -v Entering); then
+    error 'There are some modules that have different commits, please fix this manually.'
+  fi
+  
+
   if [[ "$2" = "push" ]]; then
     comment "Committing and pushing $src\n"
     git -C "$src" add -A && git -C "$src" commit -m "copy.sh export push (src)"
