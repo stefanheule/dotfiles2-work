@@ -74,7 +74,7 @@ function link_sublime_settings {
     local     src_path_keys="$base/config/sublime/Default (Windows).sublime-keymap"
 
     if [ ! -f "$wsl_path_settings" ] || [ ! -f "$wsl_path_keys" ]; then
-      blue "sublime on Windows not installed, not setting up sublime settings there"
+      blue "sublime on Windows not installed, not setting up sublime settings there\n"
       return
     fi
 

@@ -387,7 +387,6 @@ source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-llm-suggestions/zsh-llm-sugg
 bindkey '^o' zsh_llm_suggestions_openai
 bindkey '^p' zsh_llm_suggestions_github_copilot
 
-
 # ------------------------------------------------------------------------------
 # work specific
 
