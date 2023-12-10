@@ -100,7 +100,6 @@ function link_file_windows {
     backup "$dst" "win_"
     cp "$src" "$dst"
   fi
-  echo "$src -> $dst"
 }
 
 function backup {

@@ -12,6 +12,7 @@
   "translate_tabs_to_spaces": true,
   "word_wrap": true,
   "scroll_past_end": true,
+  "font_size": 9,
   "ignored_packages":
   [
 		"Vintage",
