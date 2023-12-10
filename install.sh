@@ -69,13 +69,18 @@ function link_sublime_settings {
   link_file "$dst_path_settings" "$src_path_settings"
 
   if [ -n "$WSL_DISTRO_NAME" ]; then
-    local wsl_path_settings="/mnt/c/Users/stefan/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap"
-    local     wsl_path_keys="/mnt/c/Users/stefan/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+    local wsl_path_settings="/mnt/c/Users/stefan/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+    local     wsl_path_keys="/mnt/c/Users/stefan/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap"
     local     src_path_keys="$base/config/sublime/Default (Windows).sublime-keymap"
 
     if [ ! -f "$wsl_path_settings" ] || [ ! -f "$wsl_path_keys" ]; then
-      blue "sublime on Windows not installed, not setting up sublime settings there\n"
-      return
+      # Try again with /Sublime Text/ instead of /Sublime Text 3/
+      wsl_path_keys=${wsl_path_keys/ 3/}
+      wsl_path_settings=${wsl_path_settings/ 3/}
+      if [ ! -f "$wsl_path_settings" ] || [ ! -f "$wsl_path_keys" ]; then
+        blue "sublime on Windows not installed, not setting up sublime settings there\n"
+        return
+      fi
     fi
 
     link_file_windows "$wsl_path_settings" "$src_path_settings" "(Windows) sublime/Default.sublime-keymap"
@@ -95,6 +100,7 @@ function link_file_windows {
     backup "$dst" "win_"
     cp "$src" "$dst"
   fi
+  echo "$src -> $dst"
 }
 
 function backup {

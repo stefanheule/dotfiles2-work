@@ -424,7 +424,7 @@ source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-autosuggestions/zsh-autosugg
 bindkey '^.' autosuggest-accept
 
 # load these last
-source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 # Setup keys after loading the module only
