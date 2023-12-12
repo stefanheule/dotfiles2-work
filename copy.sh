@@ -70,6 +70,11 @@ function main {
   
 
   if [[ "$2" = "push" ]]; then
+    comment "Updateing my own submodules to head\n"
+    git -C "$src"  submodule update --remote modules/zsh-llm-suggestions
+    git -C "$dest" submodule update --remote modules/zsh-llm-suggestions
+    git -C "$src"  submodule update --remote modules/smartless
+    git -C "$dest" submodule update --remote modules/smartless
     comment "Committing and pushing $src\n"
     git -C "$src" add -A && git -C "$src" commit -m "copy.sh export push (src)"
     git -C "$src" push --recurse-submodules=on-demand
