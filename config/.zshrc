@@ -19,6 +19,12 @@ else
     export STEFAN_IS_DEVPOD=1
 fi
 
+if [[ $- == *i* ]]; then
+  export STEFAN_IS_INTERACTIVE=1
+else
+  export STEFAN_IS_INTERACTIVE=0
+fi
+
 if [[ $STEFAN_IS_WORK -eq 1 ]]; then
   if [[ $STEFAN_IS_DEVPOD -eq 0 ]]; then
     unset JAVA_HOME
@@ -352,7 +358,9 @@ fancy-ctrl-z() {
   zle push-input
 }
 zle -N fancy-ctrl-z
-stty -ixon # disable ctrl+q for normal use
+if [[ $STEFAN_IS_INTERACTIVE -eq 1 ]] && [[ "$NO_GITSTATUS" != "yes" ]]; then
+  stty -ixon # disable ctrl+q for normal use
+fi
 bindkey '^Q' fancy-ctrl-z
 
 
