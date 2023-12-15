@@ -95,7 +95,7 @@ if [[ $STEFAN_IS_DEBIAN_10 -eq 1 ]]; then
   export SMARTLESS_PAGER_ARGUMENTS='-iR --quiet'
 fi
 
-# test -f ~/dev/$STEFAN_DOTFILES_REPO_NAME/zsh/local-repo.sh && source ~/dev/$STEFAN_DOTFILES_REPO_NAME/local-repo.sh
+test -f ~/dev/$STEFAN_DOTFILES_REPO_NAME/config/local.zsh && source ~/dev/$STEFAN_DOTFILES_REPO_NAME/config/local.zsh
 
 # hack to source /etc/environment on WSL
 if [[ $STEFAN_IS_WSL -eq 1 ]]; then
@@ -398,8 +398,10 @@ else
 fi
 bindkey '^o' zsh_llm_suggestions_openai # Ctrl + O to have OpenAI suggest a command given a English description
 bindkey '^[^o' zsh_llm_suggestions_openai_explain # Ctrl + alt + O to have OpenAI explain a command
+bindkey '^[ctrl-alt-o' zsh_llm_suggestions_openai_explain
 bindkey '^p' zsh_llm_suggestions_github_copilot # Ctrl + P to have GitHub Copilot suggest a command given a English description
 bindkey '^[^p' zsh_llm_suggestions_github_copilot_explain # Ctrl + alt + P to have GitHub Copilot explain a command
+bindkey '^[ctrl-alt-p' zsh_llm_suggestions_github_copilot_explain
 
 # demo mode for zsh-llm-suggestions
 # source ~/dev/zsh-llm-suggestions/zsh-llm-suggestions-demo.zsh
@@ -452,12 +454,12 @@ ZSH_AUTOSUGGEST_HISTORY_IGNORE="cd *"
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^I' autosuggest-accept # use tab to accept suggestion
 bindkey '^.' expand-or-complete # bind regular complete to ctrl+.
-
+bindkey '^[ctrl-dot' expand-or-complete
 
 # ------------------------------------------------------------------------------
 # Syntax highlighting and substring search (load these last)
 
-# source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # history substring search
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-history-substring-search/zsh-history-substring-search.zsh
