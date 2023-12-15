@@ -19,6 +19,13 @@ else
     export STEFAN_IS_DEVPOD=1
 fi
 
+if [[ ! -n $STEFAN_ZSHRC_FIRST_RUN_COMPLETED ]]; then
+    export STEFAN_ZSHRC_FIRST_RUN_COMPLETED=1
+    if [[ $STEFAN_IS_DEVPOD -eq 1 ]] && [[ "$DEVPOD_FLAVOR" = "java" ]]; then
+      cd ~/fievel
+    fi
+fi
+
 if [[ $- == *i* ]]; then
   export STEFAN_IS_INTERACTIVE=1
 else
