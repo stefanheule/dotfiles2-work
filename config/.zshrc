@@ -145,6 +145,7 @@ function rzz {
   git -C ~/dev/$STEFAN_DOTFILES_REPO_NAME pull
   git -C ~/dev/$STEFAN_DOTFILES_REPO_NAME submodule update --init --recursive
   rz
+  ~/dev/$STEFAN_DOTFILES_REPO_NAME/install.sh
 }
 
 # alias for opening things
