@@ -1,4 +1,5 @@
 config/sublime/Default (Linux).sublime-keymap
 config/sublime/Default (OSX).sublime-keymap
 config/sublime/Preferences-OSX.sublime-settings
+config/local.zsh
 .DS_Store

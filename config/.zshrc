@@ -351,7 +351,8 @@ sudo-command-line() {
   zle end-of-line
 }
 zle -N sudo-command-line
-bindkey "^[s" sudo-command-line
+bindkey "^[s" sudo-command-line # alt+s to insert sudo
+bindkey "^[alt-s" sudo-command-line
 
 # Ctrl+Z to push the current command on a stack, and restore after the next command
 fancy-ctrl-z() {
