@@ -37,10 +37,13 @@ function main {
 function link_sublime_settings {
   cp "$base/config/sublime/Default (Windows).sublime-keymap" "$base/config/sublime/Default (Linux).sublime-keymap"
   cp "$base/config/sublime/Default (Windows).sublime-keymap" "$base/config/sublime/Default (OSX).sublime-keymap"
+  cp "$base/config/sublime/Preferences.sublime-settings" "$base/config/sublime/Preferences-OSX.sublime-settings"
   if [[ "$OSTYPE" == "darwin"* ]]; then
     sed -i '' 's/ctrl/super/g' "$base/config/sublime/Default (OSX).sublime-keymap"
+    sed -i '' 's/"font_size": 9,/"font_size": 12,/g' "$base/config/sublime/Preferences-OSX.sublime-settings"
   else
     sed -i 's/ctrl/super/g' "$base/config/sublime/Default (OSX).sublime-keymap"
+    sed -i 's/"font_size": 9,/"font_size": 12,/g' "$base/config/sublime/Preferences-OSX.sublime-settings"
   fi
 
   local src_path_settings="$base/config/sublime/Preferences.sublime-settings"
@@ -50,6 +53,7 @@ function link_sublime_settings {
     dst_path_keys=$dst_path/Default\ \(Linux\).sublime-keymap
     src_path_keys="$base/config/sublime/Default (Linux).sublime-keymap"
   elif [[ "$OSTYPE" == "darwin"* ]]; then
+    src_path_settings="$base/config/sublime/Preferences-OSX.sublime-settings"
     dst_path="$HOME/Library/Application Support/Sublime Text/Packages/User"
     dst_path_settings="$dst_path/Preferences.sublime-settings"
     dst_path_keys="$dst_path/Default (OSX).sublime-keymap"
