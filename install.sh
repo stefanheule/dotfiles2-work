@@ -34,16 +34,36 @@ function main {
     green "Personal computer; setting up apache2/nginx\n"
 
     comment "/etc/nginx/nginx.conf: "
-    link_file "/etc/nginx/nginx.conf" "$base/config-other/nginx.conf" "sudo"
+    if [[ -d /etc/nginx ]]; then
+      link_file "/etc/nginx/nginx.conf" "$base/config-other/nginx.conf" "sudo"
+    else
+      blue "nginx not installed\n"
+    fi
 
     comment "/etc/apache2/apache2.conf: "
-    link_file "/etc/apache2/apache2.conf" "$base/config-other/apache2.conf" "sudo"
+    if [[ -d /etc/apache2 ]]; then
+      link_file "/etc/apache2/apache2.conf" "$base/config-other/apache2.conf" "sudo"
 
-    comment "/etc/apache2/ports.conf: "
-    link_file "/etc/apache2/ports.conf" "$base/config-other/apache2-ports.conf" "sudo"
+      comment "/etc/apache2/ports.conf: "
+      link_file "/etc/apache2/ports.conf" "$base/config-other/apache2-ports.conf" "sudo"
 
-    comment "/etc/apache2/sites-available/pages-www.conf: "
-    link_file "/etc/apache2/sites-available/pages-www.conf" "$base/config-other/apache2-pages-www.conf" "sudo"
+      comment "/etc/apache2/sites-available/pages-www.conf: "
+      link_file "/etc/apache2/sites-available/pages-www.conf" "$base/config-other/apache2-pages-www.conf" "sudo"
+    else
+      blue "apache2 not installed\n"
+    fi
+
+    comment "WSL host file: "
+    link_file "/etc/hosts" "$base/config-other/hosts-wsl" "sudo"
+
+    
+    if ! link_file_windows "/mnt/c/Windows/System32/drivers/etc/hosts" "$base/config-other/hosts-windows" "Windows host file" "sudo"; then
+      if [[ -f /mnt/c/tools/gsudo/Current/gsudo.exe ]]; then
+        /mnt/c/tools/gsudo/Current/gsudo.exe -d "type \\\\wsl.localhost\Ubuntu\home\stefan\dev\dotfiles2\config-other\hosts-windows > %windir%\System32\drivers\etc\hosts"
+      else
+        blue "install gsudo using cholatey (/mnt/c/tools/gsudo/Current/gsudo.exe doesn't exists)"
+      fi
+    fi
   fi
 
   if [ $backup_used = "yes" ]; then
@@ -115,14 +135,20 @@ function link_file_windows {
   local dst="$1"
   local src="$2"
   local name="$3"
+  local USE_SUDO=$4
   comment "$name: "
   if diff "$dst" "$src" > /dev/null 2>&1; then
     green "no changes, already correct\n"
   else
     blue "changes, backing up and copying over (cannot symlink to windows)\n"
-    backup "$dst" "win_"
-    cp "$src" "$dst"
+    backup "$dst" "win_" $USE_SUDO
+    if [[ "$USE_SUDO" = "sudo" ]]; then
+      return 1
+    else
+      cp "$src" "$dst"
+    fi
   fi
+  return 0
 }
 
 function backup {
@@ -131,7 +157,14 @@ function backup {
   local prefix=$2
   local USE_SUDO=$3
   mkdir -p "$backup"
-  $USE_SUDO mv "$path" "$backup/$prefix$file"
+  if [[ -f "$backup/$prefix$file" ]]; then
+    rm -f "$backup/$prefix$file"
+  fi
+  if [[ "$USE_SUDO" = "sudo" ]]; then
+    cp "$path" "$backup/$prefix$file"
+  else
+    mv "$path" "$backup/$prefix$file"
+  fi
   backup_used="yes"
 }
 
