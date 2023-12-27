@@ -61,7 +61,7 @@ function main {
       if [[ -f /mnt/c/tools/gsudo/Current/gsudo.exe ]]; then
         /mnt/c/tools/gsudo/Current/gsudo.exe -d "type \\\\wsl.localhost\Ubuntu\home\stefan\dev\dotfiles2\config-other\hosts-windows > %windir%\System32\drivers\etc\hosts"
       else
-        blue "install gsudo using cholatey (/mnt/c/tools/gsudo/Current/gsudo.exe doesn't exists)"
+        blue "install gsudo using cholatey (/mnt/c/tools/gsudo/Current/gsudo.exe doesn't exists)\n"
       fi
     fi
   fi
