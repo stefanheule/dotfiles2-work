@@ -57,7 +57,7 @@ function main {
     link_file "/etc/hosts" "$base/config-other/hosts-wsl" "sudo"
 
     
-    if ! link_file_windows "/mnt/c/Windows/System32/drivers/etc/hosts" "$base/config-other/hosts-windows" "Windows host file" "sudo"; then
+    if ! link_file_windows "/mnt/c/Windows/System32/drivers/etc/hosts" "$base/config-other/hosts-windows" "Windows host file" "sudo-nomove"; then
       if [[ -f /mnt/c/tools/gsudo/Current/gsudo.exe ]]; then
         /mnt/c/tools/gsudo/Current/gsudo.exe -d "type \\\\wsl.localhost\Ubuntu\home\stefan\dev\dotfiles2\config-other\hosts-windows > %windir%\System32\drivers\etc\hosts"
       else
@@ -142,7 +142,7 @@ function link_file_windows {
   else
     blue "changes, backing up and copying over (cannot symlink to windows)\n"
     backup "$dst" "win_" $USE_SUDO
-    if [[ "$USE_SUDO" = "sudo" ]]; then
+    if [[ "$USE_SUDO" = "sudo" ]] || [[ "$USE_SUDO" = "sudo-nomove" ]]; then
       return 1
     else
       cp "$src" "$dst"
@@ -160,10 +160,10 @@ function backup {
   if [[ -f "$backup/$prefix$file" ]]; then
     rm -f "$backup/$prefix$file"
   fi
-  if [[ "$USE_SUDO" = "sudo" ]]; then
+  if [[ "$USE_SUDO" = "sudo-nomove" ]]; then
     cp "$path" "$backup/$prefix$file"
   else
-    mv "$path" "$backup/$prefix$file"
+    $USE_SUDO mv "$path" "$backup/$prefix$file"
   fi
   backup_used="yes"
 }
