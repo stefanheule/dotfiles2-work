@@ -29,6 +29,23 @@ function main {
 
   link_sublime_settings
 
+  local host=$(hostname)
+  if [[ "$host" = "mercury" ]] || [[ "$host" = "carbon" ]]; then
+    green "Personal computer; setting up apache2/nginx\n"
+
+    comment "/etc/nginx/nginx.conf: "
+    link_file "/etc/nginx/nginx.conf" "$base/config-other/nginx.conf" "sudo"
+
+    comment "/etc/apache2/apache2.conf: "
+    link_file "/etc/apache2/apache2.conf" "$base/config-other/apache2.conf" "sudo"
+
+    comment "/etc/apache2/ports.conf: "
+    link_file "/etc/apache2/ports.conf" "$base/config-other/apache2-ports.conf" "sudo"
+
+    comment "/etc/apache2/sites-available/pages-www.conf: "
+    link_file "/etc/apache2/sites-available/pages-www.conf" "$base/config-other/apache2-pages-www.conf" "sudo"
+  fi
+
   if [ $backup_used = "yes" ]; then
     blue "Backed up some files, check $backup\n"
   fi
@@ -112,8 +129,9 @@ function backup {
   local path=$1
   local file=${path##*/}
   local prefix=$2
+  local USE_SUDO=$3
   mkdir -p "$backup"
-  mv "$path" "$backup/$prefix$file"
+  $USE_SUDO mv "$path" "$backup/$prefix$file"
   backup_used="yes"
 }
 
@@ -133,6 +151,7 @@ function link_dir {
 function link_file {
   local link_location=$1
   local link_destination=$2
+  local USE_SUDO=$3
   if [ -L "$link_location" ]; then
     if [ "$(readlink -f "$link_location")" = "$link_destination" ]; then
       green "already linked"
@@ -143,11 +162,11 @@ function link_file {
     fi
   elif [ -f "$link_location" ]; then
     blue "backing up and symlinking"
-    backup "$link_location" ""
-    ln -s "$link_destination" "$link_location"
+    backup "$link_location" "" $USE_SUDO
+    $USE_SUDO ln -s "$link_destination" "$link_location"
   else
     blue "symlinking"
-    ln -s "$link_destination" "$link_location"
+    $USE_SUDO ln -s "$link_destination" "$link_location"
   fi
   echo ""
 }
