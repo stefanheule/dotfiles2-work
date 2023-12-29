@@ -472,5 +472,11 @@ source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-syntax-highlighting/zsh-synt
 
 # history substring search
 source ~/dev/$STEFAN_DOTFILES_REPO_NAME/modules/zsh-history-substring-search/zsh-history-substring-search.zsh
-bindkey '\eOA' history-substring-search-up
-bindkey '\eOB' history-substring-search-down
+
+if [[ $STEFAN_IS_OSX -eq 1 ]]; then
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+else
+  bindkey '\eOA' history-substring-search-up
+  bindkey '\eOB' history-substring-search-down
+fi
