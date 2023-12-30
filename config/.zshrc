@@ -88,6 +88,7 @@ fi
 
 
 local full_hostname=$(hostname)
+full_hostname=${full_hostname/nuc/terra}
 export STEFAN_HOSTNAME=${full_hostname/stefanh-JXJGWL69YF/stefanh}
 
 export EDITOR='nano'
@@ -260,16 +261,20 @@ function gcup {
 }
 function gcap {
   if [[ $# == 0 ]]; then
-    git add -A && git commit -m "work in progress" && gp
+    git add -A && git commit -m "work in progress"
+    gp
   else
-    git add -A && git commit -m "$*" && gp
+    git add -A && git commit -m "$*"
+    gp
   fi
 }
 function gcp {
   if [[ $# == 0 ]]; then
-    git commit -m "work in progress" && gp
+    git commit -m "work in progress"
+    gp
   else
-    git commit -m "$*" && gp
+    git commit -m "$*"
+    gp
   fi
 }
 alias gundo='git reset --soft HEAD~1 && git reset'
