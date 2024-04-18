@@ -432,7 +432,7 @@ if [[ $STEFAN_IS_WORK -eq 1 ]]; then
       echo "BUILDING BAZEL WRAPPER FIRST"
       tools/bazel build tools/bazelbuild/wrapper:bazelwrapper
     fi
-    RENOVATE_USE_GIT_HEAD=yes RENOVATE=${RENOVATE:-autofix} "$WORKSPACE_ROOT/bazel-bin/tools/bazelbuild/wrapper/bazelwrapper" \
+    RENOVATE_USE_GIT_HEAD=yes "$WORKSPACE_ROOT/bazel-bin/tools/bazelbuild/wrapper/bazelwrapper" \
       "--wrapper-config-dir" "$WORKSPACE_ROOT/tools/bazelbuild/wrapper/config/development" \
       "--wrapper-cwd" "$WORKSPACE_ROOT"  \
       "$@"
