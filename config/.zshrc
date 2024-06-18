@@ -24,6 +24,9 @@ if [[ ! -n $STEFAN_ZSHRC_FIRST_RUN_COMPLETED ]]; then
     if [[ $STEFAN_IS_DEVPOD -eq 1 ]] && [[ "$DEVPOD_FLAVOR" = "java" ]]; then
       cd ~/fievel
     fi
+    if [[ $STEFAN_IS_DEVPOD -eq 1 ]] && [[ "$DEVPOD_FLAVOR" = "uberone" ]]; then
+      cd ~/uber-one
+    fi
 fi
 
 if [[ $- == *i* ]]; then
@@ -44,6 +47,7 @@ if [[ $STEFAN_IS_WORK -eq 1 ]]; then
 
   path=(
     $HOME/dev/$STEFAN_DOTFILES_REPO_NAME/bin
+    $HOME/.cargo/bin
     $path
   )
 else

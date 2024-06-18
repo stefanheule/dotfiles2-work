@@ -148,9 +148,14 @@ prompt_pure_render_path() {
 
 	local host_suffix=""
 	local prefix=""
-	if [[ "$pwdvar" =~ ^~/dev/([^/]+)(/|$)(.*) ]]; then
+	if [[ "$pwdvar" =~ ^~/(Uber|dev)/([^/]+)(/|$)(.*) ]]; then
+		pwdvar="/${match[4]}"
+		prefix="[${match[2]}]:"
+	fi
+	if [[ "$pwdvar" =~ ^~/(uber-one|fievel|go-code|ios|android)(/|$)(.*) ]]; then
 		pwdvar="/${match[3]}"
 		prefix="[${match[1]}]:"
+		prefix="/:"
 	fi
 
 	local main_color="%F{37}" # teal
