@@ -27,6 +27,9 @@ if [[ ! -n $STEFAN_ZSHRC_FIRST_RUN_COMPLETED ]]; then
     if [[ $STEFAN_IS_DEVPOD -eq 1 ]] && [[ "$DEVPOD_FLAVOR" = "uberone" ]]; then
       cd ~/uber-one
     fi
+    if [[ $STEFAN_IS_DEVPOD -eq 0 ]] && [[ $STEFAN_IS_WORK -eq 1 ]]; then
+      cd ~/Uber
+    fi
 fi
 
 if [[ $- == *i* ]]; then
